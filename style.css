@@ -1,0 +1,54 @@
+body {
+background: linear-gradient(to right, #f0fdfa, #f8fffe);}
+.input-box {
+    position: relative;
+    width: 100%;
+}
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+.input-box input {
+    width: 100%;
+    padding-right: 35px; 
+}
+input, textarea {
+    height: 35px;
+    font-size: 14px;
+}
+.input-box i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+.container {
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+input:focus, textarea:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    outline: none;
+}
+button {
+    width: 100%;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#successMessage {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}

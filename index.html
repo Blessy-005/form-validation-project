@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Signup form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Signup Form</h1>
+        <div class="mb-2">
+            <span style="color: red;">*indicates all required fields</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">First name <span style="color: red;">*</span></label>
+            <input type="text" class="form-control" id="fName" placeholder="Joe" onkeyup="validateName()">
+            <span style="color: red;display: none;" id="nameErrorMessage">First name is Required</span>
+            <span style="color: red;display: none;" id="nameErrorPattern">Name must be atleast 3 characters</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last name(Optional) </label>
+            <input type="text" class="form-control" id="lName" placeholder="Adam">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email address <span style="color: red;">*</span></label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                onkeyup="validateEmail()">
+            <span style="color: red;display: none;" id="emailErrorMessage">Email is Required</span>
+            <span style="color: red;display: none;" id="emailErrorPattern">Enter valid email</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password <span style="color: red;">*</span></label>
+            <div class="input-box">
+                <input type="password" class="form-control" id="password" placeholder="********"
+                    onkeyup="validatePassword()">
+                <i id="eyeicon" onclick="showPassword()" class="fa-solid fa-eye"></i>
+            </div> <span style="color: red;display: none;" id="passwordErrorMessage">Password is Required</span>
+            <span style="color: red;display: none;" id="passwordErrorPattern">Must contain at least one number and one
+                uppercase and lowercase letter, and
+                at least 8 or more characters</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirm password <span style="color: red;">*</span></label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="********"
+                onkeyup="confirmPassword()">
+            <span style="color: red;display: none;" id="confirmpasswordErrorMessage">Re-enter the password</span>
+            <span style="color: red;display: none;" id="confirmpasswordPattern">Password doesn't match</span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea class="form-control" id="address" rows="1" onkeyup="addresslimit()"></textarea>
+            <span style="color: red;display: none;" id="addressErrorMessage">Address is Required</span>
+            <span style="color: red;display: none;" id="addressErrorLimit">Address must have minimum 10 characters and
+                maximum 155 characters</span>
+        </div>
+        <select class="form-select" aria-label="Default select example" id="country">
+            <option selected>Select country</option>
+            <option value="IND">IND</option>
+            <option value="AUS">AUS</option>
+            <option value="UA">UA</option>
+            <option value="WI">WI</option>
+            <option value="USA">USA</option>
+        </select>
+        <button onclick="validateForm()" type="button" class="btn btn-success my-3">Submit</button>
+        <span style="color: green;display: none; font-size: xx-large;" id="successMessage">Submitted Successfully</span>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
+<script>
+    function validateName() {
+        var name = document.getElementById("fName").value.trim();
+        if (name == "") {
+            document.getElementById("nameErrorMessage").style.display = "block";
+        } else {
+            document.getElementById("nameErrorMessage").style.display = "none";
+            if (name.length < 3) {
+                document.getElementById("nameErrorPattern").style.display = "block";
+            } else {
+                document.getElementById("nameErrorPattern").style.display = "none";
+            }
+        }
+    }
+    function validateEmail() {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var email = document.getElementById("email").value.trim();
+        if (email == "") {
+            document.getElementById("emailErrorMessage").style.display = "block";
+        } else {
+            document.getElementById("emailErrorMessage").style.display = "none";
+
+            if (emailPattern.test(email) == true) {
+                document.getElementById("emailErrorPattern").style.display = "none";
+            } else {
+                document.getElementById("emailErrorPattern").style.display = "block";
+            }
+        }
+    }
+    function validatePassword() {
+        var password = document.getElementById("password").value.trim();
+        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+        if (password == "") {
+            document.getElementById("passwordErrorMessage").style.display = "block";
+        } else {
+            document.getElementById("passwordErrorMessage").style.display = "none";
+
+            if (passwordPattern.test(password) == true) {
+                document.getElementById("passwordErrorPattern").style.display = "none";
+            } else {
+                document.getElementById("passwordErrorPattern").style.display = "block";
+            }
+        }
+
+    }
+    function showPassword() {
+        var password = document.getElementById("password");
+        var icon = document.getElementById("eyeicon");
+        if (password.type == "password") {
+            password.type = "text";
+            icon.className = "fa-solid fa-eye";
+        } else {
+            password.type = "password";
+            icon.className = "fa-solid fa-eye-slash";
+        }
+    }
+    function confirmPassword() {
+        var confirmpassword = document.getElementById("confirmPassword").value;
+        var password = document.getElementById("password").value;
+        if (confirmpassword == "") {
+            document.getElementById("confirmpasswordErrorMessage").style.display = "block";
+        } else {
+            document.getElementById("confirmpasswordErrorMessage").style.display = "none";
+            if (password == confirmpassword) {
+                document.getElementById("confirmpasswordPattern").style.display = "none";
+            }
+            else {
+                document.getElementById("confirmpasswordPattern").style.display = "block";
+            }
+        }
+    }
+    function addresslimit() {
+        var address = document.getElementById("address").value.trim();
+        var addrlength = address.length;
+
+        if (address === "") {
+            document.getElementById("addressErrorMessage").style.display = "block";
+            document.getElementById("addressErrorLimit").style.display = "none";
+        } else {
+            document.getElementById("addressErrorMessage").style.display = "none";
+
+            if (addrlength < 10 || addrlength >155) {
+                document.getElementById("addressErrorLimit").style.display = "block";
+            } else {
+                document.getElementById("addressErrorLimit").style.display = "none";
+            }
+        }
+    }
+    function validateForm() {
+    validateName();
+    validateEmail();
+    validatePassword();
+    confirmPassword();
+    addresslimit();
+
+    var name = document.getElementById("fName").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value.trim();
+    var confirm = document.getElementById("confirmPassword").value.trim();
+    var address = document.getElementById("address").value.trim();
+
+    if (name != "" && email != "" && password != "" &&
+        confirm != "" && password == confirm &&
+        address.length > 10 && address.length < 155) {
+
+        document.getElementById("successMessage").style.display = "block";
+    }
+}
+</script>
